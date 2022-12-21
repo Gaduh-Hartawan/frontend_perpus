@@ -56,7 +56,7 @@ const UserList = () => {
                   <CTableDataCell>{user.nama_anggota}</CTableDataCell>
                   <CTableDataCell>{user.jurusan}</CTableDataCell>
                   <CTableDataCell>
-                    {user.status == 'active' ? (
+                    {user.status === 'active' ? (
                       <CBadge color="success">{user.status}</CBadge>
                     ) : (
                       <CBadge color="danger">{user.status}</CBadge>
