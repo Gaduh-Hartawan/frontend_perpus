@@ -12,48 +12,33 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const AddUser = () => {
+const AddAdmin = () => {
   const API_URL = 'http://localhost:5000'
-  const [nim, setNim] = useState('')
   const [nama, setNama] = useState('')
-  const [jurusan, setJurusan] = useState('')
-  const [tlp, setTlp] = useState('')
+  const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const data = {
-    nim: nim,
     nama: nama,
-    jurusan: jurusan,
-    tlp: tlp,
+    email: email,
     username: username,
-    pass: password,
+    password: password,
   }
+
   const redirect = useNavigate()
 
-  const postData = (e) => {
-    e.preventDefault()
-    axios.post(`${API_URL}/users`, data)
-    redirect('/admin/user')
+  const postData = () => {
+    axios.post(`${API_URL}/admin`, data).then(redirect('/admin/list'))
   }
   return (
     <CRow>
       <CCard>
         <CCardHeader>
-          <strong>Form Add User</strong>
+          <strong>Form Add Admin</strong>
         </CCardHeader>
         <CCardBody>
           <CForm className="row g-3" onSubmit={postData}>
-            <CCol md={6}>
-              <CFormInput
-                type="text"
-                name="nim"
-                label="NIM"
-                // onChange={handleChange}
-                value={nim}
-                onChange={(e) => setNim(e.target.value)}
-              />
-            </CCol>
             <CCol md={6}>
               <CFormInput
                 type="text"
@@ -66,20 +51,12 @@ const AddUser = () => {
             </CCol>
             <CCol md={6}>
               <CFormInput
-                name="jurusan"
-                label="Jurusan"
+                name="email"
+                label="Email"
+                type="email"
                 // onChange={handleChange}
-                value={jurusan}
-                onChange={(e) => setJurusan(e.target.value)}
-              />
-            </CCol>
-            <CCol md={6}>
-              <CFormInput
-                name="tlp"
-                label="No Tlp"
-                // onChange={handleChange}
-                value={tlp}
-                onChange={(e) => setTlp(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </CCol>
             <CCol md={6}>
@@ -94,7 +71,7 @@ const AddUser = () => {
             <CCol md={6}>
               <CFormInput
                 type="password"
-                name="pass"
+                name="password"
                 label="Password"
                 // onChange={handleChange}
                 value={password}
@@ -111,4 +88,4 @@ const AddUser = () => {
   )
 }
 
-export default AddUser
+export default AddAdmin
