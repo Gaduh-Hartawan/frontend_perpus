@@ -19,13 +19,17 @@ const CategoryList = () => {
   const API_URL = 'http://localhost:5000'
   const [categories, setCategories] = useState([])
 
-  const deleteData = (id) => {
-    axios.delete(`${API_URL}/category/${id}`)
+  const getCategory = () => {
+    axios.get(API_URL + '/category').then((res) => setCategories(res.data))
   }
 
   useEffect(() => {
-    axios.get(API_URL + '/category').then((res) => setCategories(res.data))
-  })
+    getCategory()
+  }, [])
+
+  const deleteData = (id) => {
+    axios.delete(`${API_URL}/category/${id}`).then(getCategory())
+  }
   return (
     <CRow>
       <CCard>
@@ -51,7 +55,7 @@ const CategoryList = () => {
                     <CButton onClick={() => deleteData(item.id_kategori)} color="danger">
                       Delete
                     </CButton>
-                    <Link to={`/admin/editkategori/${item.id_kategori}`}>
+                    <Link to={`/admin/editcategory/${item.id_kategori}`}>
                       <CButton className="btn btn-success">Update</CButton>
                     </Link>
                   </CTableDataCell>
