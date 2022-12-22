@@ -13,18 +13,16 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
-  CModal,
-  CModalHeader,
-  CModalBody,
-  CModalTitle,
-  CModalFooter,
   CBadge,
 } from '@coreui/react'
 
 const UserList = () => {
   const API_URL = 'http://localhost:5000'
   const [users, setUsers] = useState([])
-  const [visible, setVisible] = useState(false)
+
+  const deleteData = (id) => {
+    axios.delete(`${API_URL}/users/${id}`)
+  }
 
   useEffect(() => {
     axios.get(API_URL + '/users').then((res) => setUsers(res.data))
@@ -63,11 +61,11 @@ const UserList = () => {
                     )}
                   </CTableDataCell>
                   <CTableDataCell>
-                    <CButton onClick={() => setVisible(!visible)} color="danger">
+                    <CButton onClick={() => deleteData(user.id_anggota)} color="danger">
                       Delete
                     </CButton>
-                    <Link>
-                      <CButton color="success">Update</CButton>
+                    <Link to={`/admin/edituser/${user.id_anggota}`}>
+                      <CButton className="btn btn-success">Update</CButton>
                     </Link>
                   </CTableDataCell>
                 </CTableRow>
@@ -76,19 +74,6 @@ const UserList = () => {
           </CTable>
         </CCardBody>
       </CCard>
-      {/* Modal */}
-      <CModal visible={visible} onClose={() => setVisible(false)}>
-        <CModalHeader onClose={() => setVisible(false)}>
-          <CModalTitle>Delete</CModalTitle>
-        </CModalHeader>
-        <CModalBody>Are you sure want to delete?</CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setVisible(false)}>
-            Close
-          </CButton>
-          <CButton color="primary">Save changes</CButton>
-        </CModalFooter>
-      </CModal>
     </CRow>
   )
 }

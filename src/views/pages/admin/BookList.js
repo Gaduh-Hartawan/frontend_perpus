@@ -11,11 +11,16 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CButton,
 } from '@coreui/react'
 import { Link } from 'react-router-dom'
 
 const BookList = () => {
   const API_URL = 'http://localhost:5000'
+
+  const deleteData = (id) => {
+    axios.delete(`${API_URL}/books/${id}`)
+  }
   const [books, setBooks] = useState([])
   useEffect(() => {
     axios.get(API_URL + '/books').then((res) => setBooks(res.data))
@@ -27,7 +32,7 @@ const BookList = () => {
           <strong>Tabel Data Buku</strong>
         </CCardHeader>
         <CCardBody>
-          <Link className="btn btn-primary" to={`/base/cards`}>
+          <Link className="btn btn-primary" to={`/admin/addbook`}>
             Tambah
           </Link>
           <CTable hover>
@@ -47,7 +52,14 @@ const BookList = () => {
                   <CTableDataCell>{item.nama_kategori}</CTableDataCell>
                   <CTableDataCell>{item.pengarang}</CTableDataCell>
                   <CTableDataCell>{item.jumlah}</CTableDataCell>
-                  <CTableDataCell>Delete | Edit</CTableDataCell>
+                  <CTableDataCell>
+                    <CButton onClick={() => deleteData(item.id_buku)} color="danger">
+                      Delete
+                    </CButton>
+                    <Link to={`/admin/editbook/${item.id_buku}`}>
+                      <CButton className="btn btn-success">Update</CButton>
+                    </Link>
+                  </CTableDataCell>
                 </CTableRow>
               ))}
             </CTableBody>
