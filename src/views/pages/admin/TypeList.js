@@ -11,15 +11,25 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CButton,
 } from '@coreui/react'
 import { Link } from 'react-router-dom'
 
 const TypeList = () => {
   const API_URL = 'http://localhost:5000'
   const [type, setType] = useState([])
-  useEffect(() => {
+
+  const getType = () => {
     axios.get(API_URL + '/type').then((res) => setType(res.data))
-  })
+  }
+
+  useEffect(() => {
+    getType()
+  }, [])
+
+  const deleteData = (id) => {
+    axios.delete(`${API_URL}/type/${id}`).then(getType())
+  }
   return (
     <CRow>
       <CCard>
@@ -27,7 +37,7 @@ const TypeList = () => {
           <strong>Tabel Data Buku</strong>
         </CCardHeader>
         <CCardBody>
-          <Link className="btn btn-primary" to={`/base/cards`}>
+          <Link className="btn btn-primary" to={`/admin/addjenis`}>
             Tambah
           </Link>
           <CTable hover>
@@ -41,7 +51,14 @@ const TypeList = () => {
               {type.map((item) => (
                 <CTableRow key={item.id_jenis}>
                   <CTableDataCell>{item.nama_jenis}</CTableDataCell>
-                  <CTableDataCell>Delete | Edit</CTableDataCell>
+                  <CTableDataCell>
+                    <CButton onClick={() => deleteData(item.id_jenis)} color="danger">
+                      Delete
+                    </CButton>
+                    <Link to={`/admin/editjenis/${item.id_jenis}`}>
+                      <CButton className="btn btn-success">Update</CButton>
+                    </Link>
+                  </CTableDataCell>
                 </CTableRow>
               ))}
             </CTableBody>
