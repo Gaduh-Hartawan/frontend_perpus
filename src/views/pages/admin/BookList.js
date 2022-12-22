@@ -24,7 +24,7 @@ const BookList = () => {
   const [books, setBooks] = useState([])
   useEffect(() => {
     axios.get(API_URL + '/books').then((res) => setBooks(res.data))
-  })
+  }, [books])
   return (
     <CRow>
       <CCard>
