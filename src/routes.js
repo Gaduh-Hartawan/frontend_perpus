@@ -18,6 +18,8 @@ const AddBook = React.lazy(() => import('./views/pages/forms/AddBook'))
 const EditBook = React.lazy(() => import('./views/pages/forms/EditBook'))
 const AddCategory = React.lazy(() => import('./views/pages/forms/AddCategory'))
 const EditCategory = React.lazy(() => import('./views/pages/forms/EditCategory.js'))
+const AddJenis = React.lazy(() => import('./views/pages/forms/AddJenis'))
+const EditJenis = React.lazy(() => import('./views/pages/forms/EditJenis.js'))
 
 const routes = [
   // { path: '/', exact: true, name: 'Home' },
@@ -39,6 +41,8 @@ const routes = [
   { path: '/admin/editbook/:id', name: 'Form Edit Book', element: EditBook },
   { path: '/admin/addcategory', name: 'Form Add Category', element: AddCategory },
   { path: '/admin/editcategory/:id', name: 'Form Edit Category', element: EditCategory },
+  { path: '/admin/addjenis', name: 'Form Add Category', element: AddJenis },
+  { path: '/admin/editjenis/:id', name: 'Form Edit Category', element: EditJenis },
 
   // User
 ]
