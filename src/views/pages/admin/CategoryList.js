@@ -11,12 +11,18 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CButton,
 } from '@coreui/react'
 import { Link } from 'react-router-dom'
 
 const CategoryList = () => {
   const API_URL = 'http://localhost:5000'
   const [categories, setCategories] = useState([])
+
+  const deleteData = (id) => {
+    axios.delete(`${API_URL}/category/${id}`)
+  }
+
   useEffect(() => {
     axios.get(API_URL + '/category').then((res) => setCategories(res.data))
   })
@@ -27,7 +33,7 @@ const CategoryList = () => {
           <strong>Tabel Data Buku</strong>
         </CCardHeader>
         <CCardBody>
-          <Link className="btn btn-primary" to={`/base/cards`}>
+          <Link className="btn btn-primary" to={`/admin/addcategory`}>
             Tambah
           </Link>
           <CTable hover>
@@ -41,7 +47,14 @@ const CategoryList = () => {
               {categories.map((item) => (
                 <CTableRow key={item.id_kategori}>
                   <CTableDataCell>{item.nama_kategori}</CTableDataCell>
-                  <CTableDataCell>Delete | Edit</CTableDataCell>
+                  <CTableDataCell>
+                    <CButton onClick={() => deleteData(item.id_kategori)} color="danger">
+                      Delete
+                    </CButton>
+                    <Link to={`/admin/editkategori/${item.id_kategori}`}>
+                      <CButton className="btn btn-success">Update</CButton>
+                    </Link>
+                  </CTableDataCell>
                 </CTableRow>
               ))}
             </CTableBody>
