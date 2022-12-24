@@ -41,7 +41,7 @@ const EditUser = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/users/${id}`).then((res) => {
-      console.log(res.data)
+      console.log(res.data[0])
       setNim(res.data[0].nim)
       setNama(res.data[0].nama_anggota)
       setJurusan(res.data[0].jurusan)
@@ -51,7 +51,7 @@ const EditUser = () => {
     })
   }, [])
 
-  const updataData = () => {
+  const updateData = () => {
     axios.put(`${API_URL}/users/${id}`, data).then(redirect('/admin/user'))
   }
 
@@ -62,7 +62,7 @@ const EditUser = () => {
           <strong>Form Edit User</strong>
         </CCardHeader>
         <CCardBody>
-          <CForm className="row g-3" onSubmit={updataData}>
+          <CForm className="row g-3" onSubmit={updateData}>
             <CCol md={6}>
               <CFormInput
                 type="text"
@@ -71,6 +71,7 @@ const EditUser = () => {
                 // onChange={handleChange}
                 value={nim}
                 onChange={(e) => setNim(e.target.value)}
+                required
               />
             </CCol>
             <CCol md={6}>

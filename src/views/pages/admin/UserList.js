@@ -26,6 +26,7 @@ const UserList = () => {
 
   useEffect(() => {
     axios.get(API_URL + '/users').then((res) => setUsers(res.data))
+    // console.log(users)
   }, [users])
   return (
     <CRow>
@@ -50,6 +51,7 @@ const UserList = () => {
             <CTableBody>
               {users.map((user) => (
                 <CTableRow key={user.id_anggota}>
+                  {console.log(user)}
                   <CTableHeaderCell scope="row">{user.nim}</CTableHeaderCell>
                   <CTableDataCell>{user.nama_anggota}</CTableDataCell>
                   <CTableDataCell>{user.jurusan}</CTableDataCell>

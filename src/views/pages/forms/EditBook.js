@@ -44,6 +44,7 @@ const EditBook = () => {
       setCategory(res.data)
     })
   }
+
   const getType = () => {
     axios.get(`${API_URL}/type`).then((res) => setType(res.data))
   }
