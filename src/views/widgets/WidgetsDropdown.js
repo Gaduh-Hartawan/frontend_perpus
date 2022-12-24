@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   CRow,
   CCol,
@@ -12,23 +12,36 @@ import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import axios from 'axios'
 
 const WidgetsDropdown = () => {
+  const [user, setUser] = useState('')
+  const [borrow, setBorrow] = useState('')
+  const [book, setBook] = useState('')
+  const [returns, setReturns] = useState('')
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/count`).then((res) => {
+      // console.log(res.data)
+      // console.log('jumlah user:' + res.data[0][0].count_user)
+      // console.log('jumlah buku:' + res.data[1][0].count_book)
+      // console.log('jumlah peminjaman:' + res.data[3][0].count_borrow)
+      // console.log('jumlah pengembalian:' + res.data[2][0].count_return)
+
+      setUser(res.data[0][0].count_user)
+      setBook(res.data[1][0].count_book)
+      setBorrow(res.data[3][0].count_borrow)
+      setReturns(res.data[2][0].count_return)
+    })
+  }, [])
   return (
     <CRow>
       <CCol sm={6} lg={3}>
         <CWidgetStatsA
           className="mb-4"
           color="primary"
-          value={
-            <>
-              26K{' '}
-              <span className="fs-6 fw-normal">
-                (-12.4% <CIcon icon={cilArrowBottom} />)
-              </span>
-            </>
-          }
-          title="Users"
+          value={<>{user}</>}
+          title="Jumlah Anggota"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -107,15 +120,8 @@ const WidgetsDropdown = () => {
         <CWidgetStatsA
           className="mb-4"
           color="info"
-          value={
-            <>
-              $6.200{' '}
-              <span className="fs-6 fw-normal">
-                (40.9% <CIcon icon={cilArrowTop} />)
-              </span>
-            </>
-          }
-          title="Income"
+          value={<>{book}</>}
+          title="Jumlah Buku"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -193,15 +199,8 @@ const WidgetsDropdown = () => {
         <CWidgetStatsA
           className="mb-4"
           color="warning"
-          value={
-            <>
-              2.49{' '}
-              <span className="fs-6 fw-normal">
-                (84.7% <CIcon icon={cilArrowTop} />)
-              </span>
-            </>
-          }
-          title="Conversion Rate"
+          value={<>{borrow}</>}
+          title="Jumlah Peminjaman"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -266,15 +265,8 @@ const WidgetsDropdown = () => {
         <CWidgetStatsA
           className="mb-4"
           color="danger"
-          value={
-            <>
-              44K{' '}
-              <span className="fs-6 fw-normal">
-                (-23.6% <CIcon icon={cilArrowBottom} />)
-              </span>
-            </>
-          }
-          title="Sessions"
+          value={<>{returns}</>}
+          title="Jumlah Pengembalian"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">

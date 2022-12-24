@@ -1,4 +1,5 @@
 import React from 'react'
+import LoginAdmin from './views/pages/login/Login'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 
@@ -20,10 +21,16 @@ const AddCategory = React.lazy(() => import('./views/pages/forms/AddCategory'))
 const EditCategory = React.lazy(() => import('./views/pages/forms/EditCategory.js'))
 const AddJenis = React.lazy(() => import('./views/pages/forms/AddJenis'))
 const EditJenis = React.lazy(() => import('./views/pages/forms/EditJenis.js'))
+const AddPinjam = React.lazy(() => import('./views/pages/forms/AddPinjam'))
+const EditPinjam = React.lazy(() => import('./views/pages/forms/EditPinjam.js'))
+
+// Login
+// const LoginAdmin = React.lazy(() => import('./views/pages/login/Login'))
 
 const routes = [
   // { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+
   // Admin
   { path: '/admin/list', name: 'Admin', element: AdminList },
   { path: '/admin/user', name: 'User', element: UserList },
@@ -43,6 +50,8 @@ const routes = [
   { path: '/admin/editcategory/:id', name: 'Form Edit Category', element: EditCategory },
   { path: '/admin/addjenis', name: 'Form Add Category', element: AddJenis },
   { path: '/admin/editjenis/:id', name: 'Form Edit Category', element: EditJenis },
+  { path: '/admin/addpinjam', name: 'Form Add Peminjaman', element: AddPinjam },
+  { path: '/admin/editpinjam/:id', name: 'Form Edit Category', element: EditPinjam },
 
   // User
 ]
